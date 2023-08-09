@@ -26,16 +26,44 @@ class Word {
   }
 
   // implement the guessLetter function:
-  // guessLetter(letter) {}
+  guessLetter(letter) {
+    if(this.word.includes(letter)) {  
+      this.correctLetters.push(letter)
+      // display correctly guessed letters in their respective place?
+      this.displayWord = this.word.replace("_", letter)
+    } else if (!this.incorrectLetters.includes(letter)) {
+      this.incorrectLetters.push(letter)
+      this.remainingGuesses--
+    }
+  }
 
   // implement the updateScreen function:
-  // updateScreen() {}
+  updateScreen() {
+    document.getElementById('remaining-guesses').textContent = this.remainingGuesses
+    document.getElementById('incorrect-letters').textContent = this.incorrectLetters.join(', ')
+    document.getElementById('word-to-guess').textContent = this.displayWord
 
+  }
+  
   // implement the isGameOver function:
-  // isGameOver() {}
+  isGameOver() {
+    if (this.remainingGuesses <= 0 || this.word === this.displayWord) {
+      return true
+    } else { 
+      return false
+    }
+  }
 
   // implement the getWinOrLoss function:
-  // getWinOrLoss() {}
+  getWinOrLoss() {
+    if (this.displayWord === this.word && this.remainingGuesses > 0) {
+      return "win"
+    } else if (this.remainingGuesses <= 0 && this.displayWord !== this.word) {
+      return "loss"
+    } else {
+      return null
+    }
+  }
 }
 
 function newGame() {
